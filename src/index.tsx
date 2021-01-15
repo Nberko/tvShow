@@ -1,13 +1,20 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import createRootReducer from './redux/root';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import configureStore from './redux/configureStore';
+import { createBrowserHistory } from 'history';
+import App from './App';
+
+const history = createBrowserHistory();
+
+const store = configureStore(createStore(createRootReducer(history)));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store} >
+    <App history={history} />
+  </Provider>,
   document.getElementById('root')
 );
 
